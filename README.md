@@ -1,8 +1,24 @@
-# React + Vite
+# Image Compression Tool
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple and effective web app to compress images without losing quality.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Upload images for compression.
+- Adjust compression levels for optimal results.
+- Preview compressed images before downloading.
+- Download compressed images in just one click.
+- User-friendly interface for smooth navigation.
+
+## Live Demo
+
+Check out the live app here: [Image Compression Tool](https://image-compression-tawny.vercel.app/)
+
+## Technologies Used
+
+- **Frontend**: React.js
+- **Deployment**: Vercel
+
+## Deployment
+
+This app was developed by [Muhammad Jowel](https://github.com/muhammad-jowel).
