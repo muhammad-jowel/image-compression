@@ -12,7 +12,7 @@ A simple and effective web app to compress images without losing quality.
 
 ## Live Demo
 
-Check out the live app here: [Image Compression Tool](https://image-compression-tawny.vercel.app/)
+Check out the live app here: [Image Compression Tool](https://image-compression-bd.vercel.app/)
 
 ## Technologies Used
 
@@ -21,4 +21,4 @@ Check out the live app here: [Image Compression Tool](https://image-compression-
 
 ## Deployment
 
-This app was developed by [Muhammad Jowel](https://github.com/muhammad-jowel).
+This app was developed by [Muhammad Jowel](https://www.linkedin.com/in/muhammad-jowel/).
