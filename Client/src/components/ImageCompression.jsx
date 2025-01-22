@@ -1,5 +1,10 @@
 import React, { useState } from "react";
 import imageCompression from "browser-image-compression";
+import { RiLogoutCircleRLine } from "react-icons/ri";
+import { CgProfile } from "react-icons/cg";
+import { Link, useNavigate } from "react-router-dom";
+import UserStore from "../store/UserStore";
+import { toast } from "react-toastify";
 
 const ImageCompression = () => {
   const [originalImage, setOriginalImage] = useState(null);
@@ -7,6 +12,9 @@ const ImageCompression = () => {
   const [originalImageSize, setOriginalImageSize] = useState(0);
   const [compressedImageSize, setCompressedImageSize] = useState(0);
   const [isCompressing, setIsCompressing] = useState(false);
+
+  const { isLogin } = UserStore();
+  const Navigate = useNavigate();
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -29,7 +37,7 @@ const ImageCompression = () => {
     try {
       setIsCompressing(true);
       const compressedFile = await imageCompression(originalImage, options);
-      console.log(compressedFile)
+      console.log(compressedFile);
       const compressedFileUrl = URL.createObjectURL(compressedFile);
 
       setCompressedImage(compressedFileUrl);
@@ -42,14 +50,28 @@ const ImageCompression = () => {
     }
   };
 
+  const loginAlert = () => {
+    toast.error("Please login to download the compressed image.");
+    Navigate("/login");
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 p-4 sm:p-10 flex items-center justify-center">
-      <div className="w-full max-w-4xl bg-white rounded-lg shadow-lg p-6 border-2 border-blue-300">
+      <div className="w-full max-w-4xl bg-white rounded-lg shadow-lg p-6 border-2 border-blue-300 animate-fade-in">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800">
-            Image Compression
-          </h1>
+        <div className="mb-8">
+          <div className="flex flex-row justify-between items-center">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">
+              Image Compression
+            </h1>
+            <div className="flex gap-4">
+              <Link to="/profile">
+                <CgProfile className="text-blue-500 text-3xl sm:text-4xl" />
+              </Link>
+              {/* Uncomment if you want to add this */}
+              {/* <RiLogoutCircleRLine className="text-red-500 text-3xl sm:text-4xl" /> */}
+            </div>
+          </div>
           <p className="text-gray-600 mt-2">
             Upload an image and compress it to save storage space.
           </p>
@@ -121,13 +143,22 @@ const ImageCompression = () => {
           </button>
 
           {compressedImage ? (
-            <a
-              href={compressedImage}
-              download="compressed-image.jpg"
-              className="px-6 py-3 rounded-lg bg-green-600 hover:bg-green-700 text-white"
-            >
-              Download
-            </a>
+            isLogin() ? (
+              <a
+                href={compressedImage}
+                download="compressed-image.jpg"
+                className="px-6 py-3 rounded-lg bg-green-600 hover:bg-green-700 text-white"
+              >
+                Download
+              </a>
+            ) : (
+              <button
+                onClick={loginAlert}
+                className="px-6 py-3 rounded-lg bg-gray-400 text-white"
+              >
+                Download
+              </button>
+            )
           ) : (
             <button
               className="px-6 py-3 rounded-lg bg-gray-400 cursor-not-allowed text-white"

@@ -10,6 +10,8 @@ router.post('/Registration', UserController.Registration);
 router.post('/Login', UserController.Login);
 router.get('/Read-Profile', AuthMiddleware, UserController.ReadProfile);
 router.post('/Update-Profile', AuthMiddleware, UserController.UpdateProfile);
+router.get('/Logout', AuthMiddleware, UserController.Logout);
+router.delete('/Delete-User', AuthMiddleware, UserController.DeleteAccount);
 
 
 export default router;
