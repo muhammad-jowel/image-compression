@@ -60,11 +60,11 @@ const Profile = () => {
           <div className="space-y-4 justify-center">
             <div className="flex justify-center space-x-2">
               <p className="text-gray-600 text-sm sm:text-base">Full Name:</p>
-              <p className="font-medium text-sm sm:text-base">{ProfileDetails?.fullName}</p>
+              <p className="font-medium text-sm sm:text-base">{ProfileDetails?.fullName || 'Please Wait..'}</p>
             </div>
             <div className="flex justify-center space-x-2">
               <p className="text-gray-600 text-sm sm:text-base">Email:</p>
-              <p className="font-medium text-sm sm:text-base">{ProfileDetails?.email}</p>
+              <p className="font-medium text-sm sm:text-base">{ProfileDetails?.email || 'Please Wait..'}</p>
             </div>
             {/* Add more dynamic user info here */}
           </div>
