@@ -6,14 +6,13 @@ import rateLimit from "express-rate-limit"
 import helmet from "helmet";
 import fileUpload from "express-fileupload";
 import router from "./routes/api.js";
-import { DATABASE, MAX_JSON_SIZE, PORT, REQUEST_NUMBER, REQUEST_TIME, URL_ENCODE, WEB_CACHE } from "./app/config/config.js";
-
+import 'dotenv/config'
 
 const app = express();
 
 // App Use Middlewares
-app.use(express.json({limit:MAX_JSON_SIZE }));
-app.use(express.urlencoded({ extended: URL_ENCODE}));
+app.use(express.json({limit: process.env.MAX_JSON_SIZE }));
+app.use(express.urlencoded({ extended: process.env.URL_ENCODE || 'true'}));
 app.use(cors());
 app.use(helmet());
 app.use(cookieParser());
@@ -21,16 +20,16 @@ app.use(fileUpload());
 
 
 // Rate Limiting
-const limiter = rateLimit({windowMs: REQUEST_TIME, max: REQUEST_NUMBER });
+const limiter = rateLimit({windowMs: process.env.REQUEST_TIME, max: process.env.REQUEST_NUMBER });
 app.use(limiter);
 
 
 // Web Cache
-app.set('etag', WEB_CACHE);
+app.set('etag', process.env.WEB_CACHE === 'false');
 
 
 // Connect to MongoDB
-mongoose.connect(DATABASE, {autoIndex: true}).then(() => {
+mongoose.connect(process.env.DATABASE, {autoIndex: true}).then(() => {
     console.log('MongoDB Connected...')
 }).catch(() => {
     console.log('Failed to connect to MongoDB...')
@@ -41,6 +40,6 @@ mongoose.connect(DATABASE, {autoIndex: true}).then(() => {
 app.use('/api', router);
 
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+app.listen(process.env.PORT, () => {
+    console.log(`Server running on port ${process.env.PORT}`);
 })
